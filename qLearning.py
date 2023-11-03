@@ -20,7 +20,7 @@ q_tables = {param: np.zeros((parameter_space[param]["max"] + 1, 2)) for param in
 learning_rate = 0.1
 discount_factor = 0.9
 exploration_prob = 0.3
-num_episodes = 5  # Adjust the number of episodes as needed
+num_episodes = 5 
 
 average_tps_per_episode = []
 tps_per_ep = []
@@ -42,7 +42,6 @@ for episode in tqdm(range(num_episodes), desc="Training Episodes"):
             action = {param: 1 if q_tables[param][current_params[param]][1] > q_tables[param][current_params[param]][0] else -1
                       for param in parameter_space}  # Exploitation
 
-        # Update parameters
         new_params = {param: max(parameter_space[param]["min"], min(parameter_space[param]["max"], current_params[param] + action[param]))
                       for param in parameter_space}
 
