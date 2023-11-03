@@ -6,7 +6,6 @@ import os
 import time
 from pathlib import Path
 
-# Define the state space and action space for each parameter
 parameter_space = {
        "vm.swappiness": {
         "min": 0,
@@ -14,7 +13,7 @@ parameter_space = {
     }
 }
 
-# Define the Q-table for each parameter
+# Q-table
 q_tables = {param: np.zeros((parameter_space[param]["max"] + 1, 2)) for param in parameter_space}
 
 # Q-learning parameters
@@ -23,18 +22,17 @@ discount_factor = 0.9
 exploration_prob = 0.3
 num_episodes = 5  # Adjust the number of episodes as needed
 
-# Initialize the list to store average TPS data
 average_tps_per_episode = []
 tps_per_ep = []
 
 # Q-learning algorithm
 for episode in tqdm(range(num_episodes), desc="Training Episodes"):
-    # Initialize parameters randomly
+    
     current_params = {param: np.random.randint(parameter_space[param]["min"], parameter_space[param]["max"] + 1)
                       for param in parameter_space}
 
     done = False
-    episode_rewards = []  # Store rewards for this episode
+    episode_rewards = [] 
 
     while not done:
         # Exploration vs. exploitation
@@ -49,15 +47,14 @@ for episode in tqdm(range(num_episodes), desc="Training Episodes"):
                       for param in parameter_space}
 
         try:
-            # Apply new parameters and run the script
+           
             for param, value in new_params.items():
                 subprocess.Popen(f"sudo sysctl {param}={value} > /dev/null 2>&1", shell=True).wait()
             subprocess.Popen("nohup ./script.sh > script_output.log 2>&1 &", shell=True).wait()
             print("1")
-            # Wait for the script's output file to exist
             file_path = Path('/home/ccbd/tuneos/mathangi/resultss/execute_execute.tsv')
-            max_wait_time = 200  # Maximum time to wait in seconds (adjust as needed)
-            wait_interval = 5   # Check every 5 seconds (adjust as needed)
+            max_wait_time = 200  
+            wait_interval = 5  
             waited_time = 0
             time.sleep(200)
             while not file_path.is_file():
@@ -67,7 +64,6 @@ for episode in tqdm(range(num_episodes), desc="Training Episodes"):
                 time.sleep(wait_interval)
                 waited_time += wait_interval
 
-            # Process the script's output
             cum_tps_values = []
             benchmark_files = ["/home/ccbd/tuneos/mathangi/resultss/execute_execute.tsv"]
             print("2")
@@ -75,7 +71,7 @@ for episode in tqdm(range(num_episodes), desc="Training Episodes"):
                 with open(file, 'r') as f:
                     lines = f.readlines()
                     if len(lines) > 1:
-                        # Skip the first line (header) and process the rest
+                     
                         for line in lines[1:]:
                             try: 
                                 cum_tps = float(line.split()[1])
@@ -105,11 +101,9 @@ for episode in tqdm(range(num_episodes), desc="Training Episodes"):
             print(f"Error running command: {e}")
             reward = 0
 
-    # Calculate and append the average reward for this episode
     average_reward = sum(episode_rewards) / len(episode_rewards)
     tps_per_ep.append(average_reward)
 
-# Create and save a graph of average TPS over episodes
 plt.plot(range(len(tps_per_ep)), tps_per_ep, label='Average TPS')
 plt.xlabel('Episodes')
 plt.ylabel('Average TPS')
