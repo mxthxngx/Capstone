@@ -1,0 +1,33 @@
+Loading config from config.bash.....
+./run.simple.bash: line 40: javac: command not found
+./run.simple.bash: line 41: javac: command not found
+./run.simple.bash: line 42: javac: command not found
+./run.simple.bash: line 43: javac: command not found
+Do load at Thu Nov 2 21:12:06 IST 2023
+tee: /home/ccbd/tuneos/mathangi/logs/load_execute.txt: No such file or directory
+executing standard sysbench load (not sharded)
+./run.simple.bash: line 60: java: command not found
+tee: /home/ccbd/tuneos/mathangi/logs/load_execute.txt: No such file or directory
+
+tee: /home/ccbd/tuneos/mathangi/logs/load_execute.txt: No such file or directory
+Thu Nov  2 21:12:07 IST 2023 | sysbench loader duration = 00:00:00:01
+
+************************************************************************
+final  interval(s)
+************************************************************************
+tail: cannot open '/home/ccbd/tuneos/mathangi/logs/load_execute.txt' for reading: No such file or directory
+Do query at Thu Nov 2 21:12:07 IST 2023
+tee: /home/ccbd/tuneos/mathangi/logs/execute_execute.txt: No such file or directory
+executing standard sysbench
+tee: /home/ccbd/tuneos/mathangi/logs/execute_execute.txt: No such file or directory
+./run.simple.bash: line 91: java: command not found
+tee: /home/ccbd/tuneos/mathangi/logs/execute_execute.txt: No such file or directory
+
+tee: /home/ccbd/tuneos/mathangi/logs/execute_execute.txt: No such file or directory
+Thu Nov  2 21:12:07 IST 2023 | sysbench benchmark duration = 00:00:00:00
+
+************************************************************************
+final  interval(s)
+************************************************************************
+tail: cannot open '/home/ccbd/tuneos/mathangi/logs/execute_execute.txt' for reading: No such file or directory
+cat: /home/ccbd/tuneos/mathangi/logs/execute_execute.txt: No such file or directory
