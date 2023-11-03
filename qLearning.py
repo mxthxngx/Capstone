@@ -13,10 +13,8 @@ parameter_space = {
     }
 }
 
-# Q-table
 q_tables = {param: np.zeros((parameter_space[param]["max"] + 1, 2)) for param in parameter_space}
 
-# Q-learning parameters
 learning_rate = 0.1
 discount_factor = 0.9
 exploration_prob = 0.3
@@ -25,7 +23,6 @@ num_episodes = 5
 average_tps_per_episode = []
 tps_per_ep = []
 
-# Q-learning algorithm
 for episode in tqdm(range(num_episodes), desc="Training Episodes"):
     
     current_params = {param: np.random.randint(parameter_space[param]["min"], parameter_space[param]["max"] + 1)
@@ -35,7 +32,6 @@ for episode in tqdm(range(num_episodes), desc="Training Episodes"):
     episode_rewards = [] 
 
     while not done:
-        # Exploration vs. exploitation
         if np.random.uniform(0, 1) < exploration_prob:
             action = {param: np.random.choice([-1, 1]) for param in parameter_space}  # Exploration
         else:
